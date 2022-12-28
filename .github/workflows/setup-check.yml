@@ -12,24 +12,25 @@ jobs:
       MARIADB_DATABASE: ilias
       MARIADB_USER: ilias
       MARIADB_ROOT_HOST: 127.0.0.1:3306
-   # services:
-   #   mariadb:
-   #     image: mariadb:10.9
-   #     ports:
-   #       - 3306:3306
-   #     env:
-   #       MARIADB_PASSWORD: ilias
-   #       MARIADB_USER: ilias
+    services:
+      mariadb:
+        image: mariadb:10.9
+        ports:
+          - 3306:3306
+        env:
+          MARIADB_PASSWORD: ilias
+          MARIADB_USER: ilias
+          MARIADB_DATABASE: ilias
+          MARIADB_ROOT_PASSWORD: ilias
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
     steps:
-      - name: Shutdown Ubuntu MySQL (SUDO)
-        run: sudo service mysql stop
-      - name: Set up MariaDB
-        uses: getong/mariadb-action@v1.1
-        with:
-          mariadb version: 10.9
-          mysql database: ilias
-          mysql password: ilias
-          mysql user: ilias
+      - name: Verify MariaDB connection
+        env:
+          PORT: ${{ job.services.mariadb.ports[3306] }}
+          run: |
+            while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+              sleep 1
+            done 
       - name: Get Code
         uses: actions/checkout@v3
       - name: Setup PHP
