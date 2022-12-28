@@ -47,6 +47,8 @@ jobs:
         run: mkdir out
       - name: LS
         run: ls -la
+      - name: PWD
+        run: pwd
       - name: Run setup
         run: php setup/setup.php install setup/minimal-config.json -y
 
