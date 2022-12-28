@@ -8,13 +8,20 @@ jobs:
   phpunit-tests:
     runs-on: ubuntu-latest
     steps:
+      strategy:
+      fail-fast: false
+      matrix:
+        release_7: [7.3, 7.4]
+        release_8: [7.4, 8.0]
+        trunk: [8.0, 8.1]
+
       - name: Get Code
         uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.release_7 }}
           extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl
           tools: composer:v1
           coverage: none
@@ -31,6 +38,7 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --no-interaction --no-progress
 
       - name: PHP Unit Test
@@ -69,6 +77,7 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --no-interaction --no-progress
 
       - name: Create ilias directory
