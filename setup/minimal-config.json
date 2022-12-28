@@ -4,7 +4,8 @@
 	},
 	"database" : {
 		"user" : "ilias",
-		"password" : "ilias"
+		"password" : "ilias",
+		"port": 3305
 	},
 	"filesystem" : {
 		"data_dir" : "/home/runner/work/out"
