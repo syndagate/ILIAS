@@ -16,7 +16,7 @@ jobs:
       mysql:
         image: mysql:debian
         ports:
-          - 3306
+          - 3306:3306
         env:
           MYSQL_PASSWORD: ilias
           MYSQL_USER: ilias
