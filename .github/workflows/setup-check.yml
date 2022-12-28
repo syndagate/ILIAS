@@ -8,10 +8,21 @@ jobs:
   container-test:
     runs-on: ubuntu-latest
     env:
-      MARIADB_PASSWORD: ilias
-      MARIADB_DATABASE: ilias
-      MARIADB_USER: ilias
-      MARIADB_ROOT_HOST: 127.0.0.1:3306
+      MYSQL_PASSWORD: ilias
+      MYSQL_DATABASE: ilias
+      MYSQL_USER: ilias
+      MYSQL_ROOT_HOST: 127.0.0.1:3306
+    services:
+      mysql:
+        image: mysql:debian
+        ports:
+          - 3306
+        env:
+          MYSQL_PASSWORD: ilias
+          MYSQL_USER: ilias
+          MYSQL_DATABASE: ilias
+          MYSQL_ROOT_PASSWORD: ilias
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
     steps:
       - name: Verify MariaDB connection
         run: |
