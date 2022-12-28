@@ -39,4 +39,6 @@ jobs:
         run: composer install --no-interaction --no-progress
       - name: PHP Unit Test 
         run: CI/PHPUnit/run_tests.sh
+      - name: Run setup
+        run: php setup/setup.php install setup/minimal-config.json
 
