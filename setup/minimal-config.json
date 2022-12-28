@@ -3,7 +3,8 @@
 		"client_id" : "myilias"
 	},
 	"database" : {
-		"user" : "ilias_user"
+		"user" : "ilias",
+		"password" : "ilias"
 	},
 	"filesystem" : {
 		"data_dir" : "/var/lib/ilias"
