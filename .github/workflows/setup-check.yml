@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release-7: [7.3, 7.4]
+        release_7: [7.3, 7.4]
 
     steps:
       - name: Get Code
@@ -44,6 +44,10 @@ jobs:
   setup-test:
     needs: phpunit-tests
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        release_7: [7.3, 7.4]
     env:
       DB_PASSWORD: root
       DB_DATABASE: ilias
@@ -58,7 +62,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.release_7 }}
           extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl, mysql
           tools: composer:v1
           coverage: none
