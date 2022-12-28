@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       strategy:
-      fail-fast: false
-      matrix:
-        release_7: [7.3, 7.4]
-        release_8: [7.4, 8.0]
-        trunk: [8.0, 8.1]
+        fail-fast: false
+        matrix:
+          release_7: [7.3, 7.4]
+          release_8: [7.4, 8.0]
+          trunk: [8.0, 8.1]
 
       - name: Get Code
         uses: actions/checkout@v3
