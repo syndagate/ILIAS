@@ -38,15 +38,12 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl, mysql
           tools: composer:v1
           coverage: none
-     # - name: Get Composer Cache Directory
-     #   id: composer-cache
-     #   run: echo "{dir}={$(composer config cache-files-dir)}" >> GITHUB_OUTPUT
-     # - uses: actions/cache@v3
-     #   with:
-     #     path: ${{ steps.composer-cache.outputs.dir }}
-     #     key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-     #     restore-keys: |
-     #       ${{ runner.os }}-composer-
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
       - name: Install dependencies
         run: composer install --no-interaction --no-progress
      # - name: PHP Unit Test
