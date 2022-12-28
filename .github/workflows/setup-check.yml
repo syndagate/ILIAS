@@ -7,8 +7,6 @@ on:
 jobs:
   container-test:
     runs-on: ubuntu-latest
-    container:
-      image: debian:10.13-slim
     env:
       MARIADB_ROOT_PASSWORD: ilias
       MARIADB_DATABASE: ilias
