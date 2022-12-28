@@ -40,5 +40,5 @@ jobs:
       - name: PHP Unit Test 
         run: CI/PHPUnit/run_tests.sh
       - name: Run setup
-        run: php setup/setup.php install setup/minimal-config.json
+        run: php setup/setup.php install setup/minimal-config.json -y
 
