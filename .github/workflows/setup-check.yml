@@ -11,7 +11,7 @@ jobs:
       MARIADB_PASSWORD: ilias
       MARIADB_DATABASE: ilias
       MARIADB_USER: ilias
-      MARIADB_ROOT_HOST: 127.0.0.1:3306
+      MARIADB_ROOT_HOST: 127.0.0.1:3305
     services:
       mariadb:
         image: mariadb:10.9
