@@ -11,7 +11,7 @@ jobs:
       strategy:
         fail-fast: false
         matrix:
-          release_7: [7.3, 7.4]
+          release-7: [7.3, 7.4]
 
       - name: Get Code
         uses: actions/checkout@v3
