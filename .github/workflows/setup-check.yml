@@ -32,8 +32,7 @@ jobs:
           coverage: none
       - name: Get Composer Cache Directory
         id: composer-cache
-        run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "{dir}={$(composer config cache-files-dir)}" >> GITHUB_OUTPUT
       - uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
@@ -42,12 +41,10 @@ jobs:
             ${{ runner.os }}-composer-
       - name: Install dependencies
         run: composer install --no-interaction --no-progress
-      - name: PHP Unit Test
-        run: CI/PHPUnit/run_tests.sh
+     # - name: PHP Unit Test
+      #  run: CI/PHPUnit/run_tests.sh
       - name: Create ilias directory
-        run: mkdir -p /ilias
-      - name: Change mod of /ilias
-        run: chmod 777 /ilias
+        run: mkdir out
       - name: Run setup
         run: php setup/setup.php install setup/minimal-config.json -y
 
