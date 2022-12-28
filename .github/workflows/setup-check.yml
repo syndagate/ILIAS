@@ -90,6 +90,7 @@ jobs:
 
   report:
     needs: [phpunit-tests, setup-tests]
+    if: failure()
     runs-on: ubuntu-latest
     steps:
       - name: Debug Output
