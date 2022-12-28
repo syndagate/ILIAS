@@ -1,6 +1,6 @@
 {
 	"common" : {
-		"client_id" : "myilias"
+		"client_id" : "ilias"
 	},
 	"database" : {
 		"user" : "ilias",
