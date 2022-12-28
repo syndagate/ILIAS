@@ -14,13 +14,10 @@ jobs:
     steps:
       - name: Setup MySql
         run: sudo /etc/init.d/mysql start
-      - name: Verify MariaDB connection
-        run: |
-          while ! mysqladmin ping -h"127.0.0.1" -P"3306" --silent; do
-            sleep 1
-          done 
+
       - name: Get Code
         uses: actions/checkout@v3
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -28,23 +25,27 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl, mysql
           tools: composer:v1
           coverage: none
+
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
       - name: Cache composer dependencies
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
+
       - name: Install dependencies
         run: composer install --no-interaction --no-progress
-     # - name: PHP Unit Test
-      #  run: CI/PHPUnit/run_tests.sh
+
+      - name: PHP Unit Test
+        run: CI/PHPUnit/run_tests.sh
+
       - name: Create ilias directory
         run: mkdir -p /home/runner/work/out
-      - name: Docker ps
-        run: docker ps -a
+
       - name: Run setup
         run: php setup/setup.php install setup/minimal-config.json -y
 
