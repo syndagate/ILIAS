@@ -37,8 +37,12 @@ jobs:
           key: ${{ env.CACHE_KEY }}-${{ hashFiles('**/composer.lock') }}
       - name: Install dependencies
         run: composer install --no-interaction --no-progress
-      - name: PHP Unit Test 
+      - name: PHP Unit Test
         run: CI/PHPUnit/run_tests.sh
+      - name: Create ilias directory
+        run: mkdir -p /var/lib/ilias
+      - name: Change mod of /var/lib/ilias
+        run: chmod 777 /var/lib/ilias
       - name: Run setup
         run: php setup/setup.php install setup/minimal-config.json -y
 
