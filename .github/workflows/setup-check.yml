@@ -55,6 +55,6 @@ jobs:
         run: mkdir -p /home/runner/work/out
       - name: Docker ps
         run: docker ps -a
-      - name: Run setup
-        run: php setup/setup.php install setup/minimal-config.json -y
+    #  - name: Run setup
+    #    run: php setup/setup.php install setup/minimal-config.json -y
 
