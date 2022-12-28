@@ -8,22 +8,12 @@ jobs:
   container-test:
     runs-on: ubuntu-latest
     env:
-      MYSQL_PASSWORD: ilias
-      MYSQL_DATABASE: ilias
-      MYSQL_USER: ilias
-      MYSQL_ROOT_HOST: 127.0.0.1:3306
-    services:
-      mysql:
-        image: mysql:debian
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_PASSWORD: ilias
-          MYSQL_USER: ilias
-          MYSQL_DATABASE: ilias
-          MYSQL_ROOT_PASSWORD: ilias
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+      DB_PASSWORD: root
+      DB_DATABASE: ilias
+      DB_USER: root
     steps:
+      - name: Setup MySql
+        run: sudo run /etc/init.d/mysql start
       - name: Verify MariaDB connection
         run: |
           while ! mysqladmin ping -h"127.0.0.1" -P"3306" --silent; do
@@ -55,6 +45,6 @@ jobs:
         run: mkdir -p /home/runner/work/out
       - name: Docker ps
         run: docker ps -a
-    #  - name: Run setup
-    #    run: php setup/setup.php install setup/minimal-config.json -y
+      - name: Run setup
+        run: php setup/setup.php install setup/minimal-config.json -y
 

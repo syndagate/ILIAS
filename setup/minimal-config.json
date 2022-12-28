@@ -3,10 +3,10 @@
 		"client_id" : "ilias"
 	},
 	"database" : {
-		"user" : "ilias",
+		"user" : "root",
 		"database" : "ilias",
-		"password" : "ilias",
-		"port": 3305
+		"password" : "root",
+		"port": 3306
 	},
 	"filesystem" : {
 		"data_dir" : "/home/runner/work/out"
