@@ -5,7 +5,38 @@ on:
       - action-test
 
 jobs:
-  container-test:
+  phpunit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl
+          tools: composer:v1
+          coverage: none
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: PHP Unit Test
+        run: CI/PHPUnit/run_tests.sh
+  setup-test:
+    needs: phpunit-tests
     runs-on: ubuntu-latest
     env:
       DB_PASSWORD: root
@@ -39,9 +70,6 @@ jobs:
 
       - name: Install dependencies
         run: composer install --no-interaction --no-progress
-
-      - name: PHP Unit Test
-        run: CI/PHPUnit/run_tests.sh
 
       - name: Create ilias directory
         run: mkdir -p /home/runner/work/out
