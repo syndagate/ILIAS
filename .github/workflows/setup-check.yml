@@ -30,19 +30,24 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl
           tools: composer:v1
           coverage: none
-      - name: Cache dependencies
-        uses: actions/cache@v3
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v3
         with:
-          path: ~/libs/composer/vendor
-          key: ${{ env.CACHE_KEY }}-${{ hashFiles('**/composer.lock') }}
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
       - name: Install dependencies
         run: composer install --no-interaction --no-progress
       - name: PHP Unit Test
         run: CI/PHPUnit/run_tests.sh
       - name: Create ilias directory
-        run: mkdir -p /var/lib/ilias
-      - name: Change mod of /var/lib/ilias
-        run: chmod 777 /var/lib/ilias
+        run: mkdir -p /ilias
+      - name: Change mod of /ilias
+        run: chmod 777 /ilias
       - name: Run setup
         run: php setup/setup.php install setup/minimal-config.json -y
 

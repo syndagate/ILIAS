@@ -7,7 +7,7 @@
 		"password" : "ilias"
 	},
 	"filesystem" : {
-		"data_dir" : "/var/lib/ilias"
+		"data_dir" : "/ilias"
 	},
 	"http" : {
 		"path" : "http://demo1.cat06.de"
