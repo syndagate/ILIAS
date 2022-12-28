@@ -13,7 +13,7 @@ jobs:
       DB_USER: root
     steps:
       - name: Setup MySql
-        run: sudo run /etc/init.d/mysql start
+        run: sudo /etc/init.d/mysql start
       - name: Verify MariaDB connection
         run: |
           while ! mysqladmin ping -h"127.0.0.1" -P"3306" --silent; do
