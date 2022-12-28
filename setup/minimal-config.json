@@ -6,7 +6,6 @@
 		"user" : "ilias",
 		"database" : "ilias",
 		"password" : "ilias",
-		"type" : "innodb",
 		"port": 3305
 	},
 	"filesystem" : {

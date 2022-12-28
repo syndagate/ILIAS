@@ -14,7 +14,7 @@ jobs:
       MARIADB_ROOT_HOST: 127.0.0.1:3305
     services:
       mariadb:
-        image: mariadb:10.9
+        image: mariadb:10.3
         ports:
           - 3305:3306
         env:
