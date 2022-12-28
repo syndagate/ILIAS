@@ -8,7 +8,7 @@ jobs:
   container-test:
     runs-on: ubuntu-latest
     env:
-      MARIADB_ROOT_PASSWORD: ilias
+      MARIADB_PASSWORD: ilias
       MARIADB_DATABASE: ilias
       MARIADB_USER: ilias
       MARIADB_ROOT_HOST: 127.0.0.1:3306
@@ -18,7 +18,7 @@ jobs:
         ports:
           - 3306:3306
         env:
-          MARIADB_ROOT_PASSWORD: ilias
+          MARIADB_PASSWORD: ilias
           MARIADB_USER: ilias
     steps:
       - name: Get Code
