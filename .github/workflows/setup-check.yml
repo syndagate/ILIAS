@@ -45,6 +45,8 @@ jobs:
       #  run: CI/PHPUnit/run_tests.sh
       - name: Create ilias directory
         run: mkdir out
+      - name: LS
+        run: ls -la
       - name: Run setup
         run: php setup/setup.php install setup/minimal-config.json -y
 
