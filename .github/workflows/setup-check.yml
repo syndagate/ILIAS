@@ -16,19 +16,13 @@ jobs:
       - name: Get Code
         uses: actions/checkout@v3
 
-      - name: Install PHP
-        uses: ./.github/workflows/install-php.yml
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.release_7 }}
-          composer-version: 1
-
-      #- name: Setup PHP
-      #  uses: shivammathur/setup-php@v2
-      #  with:
-      #    php-version: ${{ matrix.release_7 }}
-      #    extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl
-      #    tools: composer:v1
-      #    coverage: none
+          extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl
+          tools: composer:v1
+          coverage: none
 
       - name: Get composer cache directory
         id: composer-cache
@@ -64,19 +58,13 @@ jobs:
       - name: Get Code
         uses: actions/checkout@v3
 
-      - name: Install PHP
-        uses: ./.github/workflows/install-php.yml
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.release_7 }}
-          composer-version: 1
-
-      #- name: Setup PHP
-      #  uses: shivammathur/setup-php@v2
-      #  with:
-      #    php-version: ${{ matrix.release_7 }}
-      #    extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl, mysql
-      #    tools: composer:v1
-      #    coverage: none
+          extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl, mysql
+          tools: composer:v1
+          coverage: none
 
       - name: Get composer cache directory
         id: composer-cache
