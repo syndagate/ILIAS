@@ -47,14 +47,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release_7: [7.3, 7.4]
+        release_7: [7.4]
     env:
       DB_PASSWORD: root
       DB_DATABASE: ilias
       DB_USER: root
     steps:
       - name: Setup MySql
-        run: sudo /etc/init.d/mysql start --default-auth=mysql_native_password
+        run: sudo /etc/init.d/mysql start
 
       - name: Get Code
         uses: actions/checkout@v3
@@ -86,14 +86,3 @@ jobs:
 
       - name: Run setup
         run: php setup/setup.php install setup/minimal-config.json -y
-
-  report:
-    needs: [phpunit-tests, setup-tests]
-    if: failure()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Debug Output
-        run: |
-          echo "Printing github object"
-          echo "${{ toJSON(github) }}"
-
