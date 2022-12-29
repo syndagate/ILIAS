@@ -11,7 +11,6 @@ jobs:
       fail-fast: false
       matrix:
         release_7: [7.3, 7.4]
-
     steps:
       - name: Get Code
         uses: actions/checkout@v3
@@ -42,12 +41,11 @@ jobs:
 
   Language-Sort-Check:
     runs-on: ubuntu-latest
-
     steps:
       - name: Get Code
         uses: actions/checkout@v3
 
-     - name: Install PHP
+      - name: Install PHP
         uses: ./.github/actions/install-php
         with:
           php-version: 7.4
@@ -57,7 +55,6 @@ jobs:
 
   Special-Char-Checker:
     runs-on: ubuntu-latest
-
     steps:
       - name: Get Code
         uses: actions/checkout@v3
@@ -74,7 +71,6 @@ jobs:
       fail-fast: false
       matrix:
         release_7: [7.3, 7.4]
-
     steps:
       - name: Get Code
         uses: actions/checkout@v3
