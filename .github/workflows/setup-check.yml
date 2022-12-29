@@ -39,7 +39,7 @@ jobs:
         run: echo "${{ toJSON(steps.composer-cache.outputs) }}"
 
       - name: Install dependencies
-        if: steps.composer-cache.outputs.dir != 'true'
+        if: steps.composer-cache.outputs.dir == ''
         run: composer install --no-interaction --no-progress
 
       - name: PHP Unit Test
@@ -82,7 +82,7 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        if: steps.composer-cache.outputs.cache-hit != 'true'
+        if: steps.composer-cache.outputs.dir == ''
         run: composer install --no-interaction --no-progress
 
       - name: Create ilias directory
