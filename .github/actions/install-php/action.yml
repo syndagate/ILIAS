@@ -14,11 +14,11 @@ inputs:
 
 runs:
   using: composite
-    steps:
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ inputs.php-version }}
-          extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl
-          tools: composer:v${{ inputs.composer-version }}
-          coverage: none
+  steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ inputs.php-version }}
+        extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl
+        tools: composer:v${{ inputs.composer-version }}
+        coverage: none
