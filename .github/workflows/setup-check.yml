@@ -36,7 +36,7 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Is Cache Hit
-        run: echo ${{ steps.composer-cache.outputs.cache-hit }}
+        run: echo "${{ steps.composer-cache.outputs.cache-hit }}"
 
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
