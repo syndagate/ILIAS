@@ -13,14 +13,14 @@ on:
         default: 1
         type: string
 
-  jobs:
-    install-php:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Setup PHP
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: ${{ inputs.php-version }}
-            extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl
-            tools: composer:v${{ inputs.composer-version }}
-            coverage: none
+jobs:
+  install-php:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ inputs.php-version }}
+          extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl
+          tools: composer:v${{ inputs.composer-version }}
+          coverage: none

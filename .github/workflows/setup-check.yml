@@ -70,7 +70,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release_7: [7.4]
+        release_7: [7.3, 7.4]
 
     steps:
       - name: Get Code
@@ -81,7 +81,7 @@ jobs:
         with:
           php-version: ${{ matrix.release_7 }}
           extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl
-          tools: composer:v1
+          tools: composer:v2
           coverage: none
 
       - name: Load and Cache Dependencies
