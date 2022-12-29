@@ -34,14 +34,9 @@ jobs:
         run: CI/PHP-CS-Fixer/run_check.sh
         env:
           GHRUN: "yes"
-          PR_NUMBER: ${{ github.event.pull_request.number }}
 
   Language-Sort-Check:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        release_7: [7.3, 7.4]
 
     steps:
       - name: Get Code
@@ -50,17 +45,12 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.release_7 }}
-          extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl
+          php-version: 7.4
           tools: composer:v2
           coverage: none
 
       - name: Language Sort Check
         run: CI/sort_langfile_entries.sh check
-        env:
-          GHRUN: "yes"
-          PR_NUMBER: ${{ github.event.number }}
-          GH_SHA: ${{ github.sha }}
 
   Special-Char-Checker:
     runs-on: ubuntu-latest
@@ -73,10 +63,9 @@ jobs:
         run: CI/Special-Char-Checker/special-char-checker.sh
         env:
           GHRUN: "yes"
-          PR_NUMBER: ${{ github.event.pull_request.number }}
 
   PHP-Unit-Tests:
-    needs: [PHP-CS-Fixer, Language-Sort-Check, Special-Char-Checker]
+    needs: [PHP-CS-Fixer]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
