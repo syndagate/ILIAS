@@ -36,10 +36,10 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Is Cache Hit
-        run: echo "${{ steps.composer-cache.outputs }}"
+        run: echo "${{ steps.composer-cache.outputs.dir }}"
 
       - name: Install dependencies
-        if: steps.composer-cache.outputs.cache-hit != 'true'
+        if: steps.composer-cache.outputs.dir != 'true'
         run: composer install --no-interaction --no-progress
 
       - name: PHP Unit Test
