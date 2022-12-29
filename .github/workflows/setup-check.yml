@@ -53,11 +53,8 @@ jobs:
       DB_DATABASE: ilias
       DB_USER: root
     steps:
-      - name: Foo SQL
-        run: echo "[mysqld]\ndefault_authentication_plugin = mysql_native_password" >> /etc/mysql/my.cnf
-
       - name: Setup MySql
-        run: sudo /etc/init.d/mysql start
+        run: sudo /etc/init.d/mysql start --default-auth=mysql_native_password
 
       - name: Get Code
         uses: actions/checkout@v3
