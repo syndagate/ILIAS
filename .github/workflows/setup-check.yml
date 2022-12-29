@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: Get Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: foo
-        uses: ./.github/workflows/install-php.yml
+        uses: ./.github/actions/install-php
 
 #      - name: Setup PHP
 #        uses: shivammathur/setup-php@v2
