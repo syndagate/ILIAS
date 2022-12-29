@@ -40,6 +40,7 @@ jobs:
 
       - name: PHP Unit Test
         run: CI/PHPUnit/run_tests.sh
+
   setup-tests:
     needs: phpunit-tests
     runs-on: ubuntu-latest
@@ -52,6 +53,9 @@ jobs:
       DB_DATABASE: ilias
       DB_USER: root
     steps:
+      - name: Foo SQL
+        run: echo "[mysqld]\ndefault_authentication_plugin = mysql_native_password" >> /etc/mysql/my.cnf
+
       - name: Setup MySql
         run: sudo /etc/init.d/mysql start
 
