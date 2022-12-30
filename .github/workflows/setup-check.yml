@@ -1,4 +1,4 @@
-name: Check the setup process
+name: Check the setup process ${{ github.base_ref }}
 on:
   push:
     branches:
@@ -19,14 +19,6 @@ jobs:
         uses: ./.github/actions/install-php
         with:
           php-version: ${{ matrix.release_7 }}
-
-#      - name: Setup PHP
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: ${{ matrix.release_7 }}
-#          extensions: dom, curl, libxml, mbstring, zip, gd, json, readline, xsl
-#          tools: composer:v2
-#          coverage: none
 
       - name: Load and Cache Dependencies
         uses: ./.github/actions/cached-deps
