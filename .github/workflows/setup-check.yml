@@ -1,8 +1,11 @@
 name: 'Check PHP-CS_Fixer, Language-Sort-Check, Special-Char-Checker, PHP-Unit-Tests and Setup-Process'
 on:
-  pull_request:
+  push:
     branches:
-      - release_7
+      - action-tests
+#  pull_request:
+#    branches:
+#      - release_7
 #  schedule:
 #    - cron: "0 12 * * *"
 #  workflow_dispatch:
