@@ -1,8 +1,14 @@
-name: Check the setup process
+name: Check PHP-CS_Fixer, Language-Sort-Check, Special-Char-Checker, PHP-Unit-Tests and Setup-Process
 on:
-  push:
+  pull_request:
     branches:
-      - action-test
+      - release_7
+  schedule:
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: read
 
 jobs:
   PHP-CS-Fixer:
@@ -10,19 +16,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release_7: [7.3, 7.4, 8.0, 8.1]
-        if: ${{ github.ref }} == 'refs/head/action-test'
-        exclude:
-            - release_7: 8.0
-            - release_7: 8.1
+        php-versions: [7.3, 7.4]
     steps:
       - name: Get Code
         uses: actions/checkout@v3
 
+      - name: Print event
+        run: echo "${{ toJSON(github.event) }}"
+
       - name: Install PHP
         uses: ./.github/actions/install-php
         with:
-          php-version: ${{ matrix.release_7 }}
+          php-version: ${{ matrix.php-versions }}
 
       - name: Load and Cache Dependencies
         uses: ./.github/actions/cached-deps
@@ -61,12 +66,12 @@ jobs:
           GHRUN: "yes"
 
   PHP-Unit-Tests:
-    needs: [PHP-CS-Fixer]
+    needs: PHP-CS-Fixer
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        release_7: [7.3, 7.4]
+        php-versions: [7.3, 7.4]
     steps:
       - name: Get Code
         uses: actions/checkout@v3
@@ -74,7 +79,7 @@ jobs:
       - name: Install PHP
         uses: ./.github/actions/install-php
         with:
-          php-version: ${{ matrix.release_7 }}
+          php-version: ${{ matrix.php-versions }}
           composer-version: 2
 
       - name: Load and Cache Dependencies
@@ -87,12 +92,12 @@ jobs:
         run: CI/PHPUnit/run_tests.sh
 
   Setup-Tests:
-    needs: [PHP-Unit-Tests]
+    needs: PHP-Unit-Tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        release_7: [7.4]
+        php-versions: 7.4
     env:
       DB_PASSWORD: root
       DB_DATABASE: ilias
@@ -107,7 +112,7 @@ jobs:
       - name: Install PHP
         uses: ./.github/actions/install-php
         with:
-          php-version: ${{ matrix.release_7 }}
+          php-version: ${{ matrix.php-versions }}
 
       - name: Load and Cache Dependencies
         uses: ./.github/actions/cached-deps
