@@ -10,9 +10,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
+        release_7: [7.3, 7.4, 8.0, 8.1]
+        exclude:
           - if: ${{ github.ref }} == 'refs/head/action-test'
-            release_7: 7.4
+            release_7: 8.0
+          - if: ${{ github.ref }} == 'refs/head/action-test'
+            release_7: 8.1
     steps:
       - name: Get Code
         uses: actions/checkout@v3
