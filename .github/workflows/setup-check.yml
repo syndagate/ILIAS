@@ -100,7 +100,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: 7.4
+        php-versions: [7.4]
     env:
       DB_PASSWORD: root
       DB_DATABASE: ilias
