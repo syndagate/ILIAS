@@ -1,4 +1,4 @@
-name: Check PHP-CS_Fixer, Language-Sort-Check, Special-Char-Checker, PHP-Unit-Tests and Setup-Process
+name: 'Check PHP-CS_Fixer, Language-Sort-Check, Special-Char-Checker, PHP-Unit-Tests and Setup-Process'
 on:
   pull_request:
     branches:
